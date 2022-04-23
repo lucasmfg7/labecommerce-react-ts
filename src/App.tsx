@@ -27,7 +27,7 @@ const data = [
   },
   {
     id: 2,
-    name: "Bonco do Ezio Auditore",
+    name: "Boneco do Ezio Auditore",
     value: 523.0,
     imageUrl: "https://picsum.photos/200/200?a=2",
   },
@@ -63,7 +63,7 @@ const App = () => {
     },
     {
       id: 2,
-      name: "Bonco do Ezio Auditore",
+      name: "Boneco do Ezio Auditore",
       value: 523.0,
       imageUrl: "https://picsum.photos/200/200?a=2",
       quantity: 1,
@@ -94,6 +94,21 @@ const App = () => {
     }
   };
 
+  const handleRemoveProductCart = (productId: number) => {
+    const productInCart = productCart
+      .map((product) => {
+        if (product.id === productId) {
+          return {
+            ...product,
+            quantity: (product.quantity as number) - 1,
+          };
+        }
+        return product;
+      })
+      .filter((product) => (product.quantity as number) > 0);
+    setProductCart(productInCart);
+  };
+
   console.log(productCart);
 
   return (
@@ -103,7 +118,10 @@ const App = () => {
         productList={productList}
         handleAddProductCart={handleAddProductCart}
       />
-      <Cart />
+      <Cart
+        productCart={productCart}
+        handleRemoveProductCart={handleRemoveProductCart}
+      />
     </Container>
   );
 };

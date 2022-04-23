@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Product } from "../App";
 
 export const Container = styled.section`
   border: 1px solid black;
@@ -14,26 +15,29 @@ export const Products = styled.div`
   }
 `;
 
-export const Cart = () => {
+interface CartProps {
+  productCart: Product[];
+  handleRemoveProductCart: (productId: number) => void;
+}
+
+export const Cart = ({ productCart, handleRemoveProductCart }: CartProps) => {
   return (
     <Container>
       <h3>Carrinho</h3>
       <Products>
-        <div>
-          <span>1x</span>
-          <span>Produto Legal</span>
-          <button>Remover</button>
-        </div>
-        <div>
-          <span>3x</span>
-          <span>Produto Normal</span>
-          <button>Remover</button>
-        </div>
-        <div>
-          <span>2x</span>
-          <span>Produto Foda</span>
-          <button>Remover</button>
-        </div>
+        {productCart.length > 0 ? (
+          productCart.map((product) => (
+            <div key={product.id}>
+              <span>{product.quantity}x</span>
+              <span>{product.name}</span>
+              <button onClick={() => handleRemoveProductCart(product.id)}>
+                Remover
+              </button>
+            </div>
+          ))
+        ) : (
+          <p>Carrinho Vazio</p>
+        )}
       </Products>
       <p>Valor total: R$100,00</p>
     </Container>
