@@ -1,0 +1,67 @@
+.container {
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+}
+
+.filter {
+  border: 1px solid black;
+  border-radius: 4px;
+  padding: 1rem;
+}
+
+.filter label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.filter label span {
+  margin-bottom: 5px;
+}
+
+.list {
+  padding: 1rem;
+}
+
+.list header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.list header label select {
+  margin-left: 5px;
+}
+
+.list .grid {
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.list .grid .product {
+  border: 1px solid black;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+}
+
+.list .grid .product .info {
+  display: flex;
+  flex-direction: column;
+  padding: 0 1rem 1rem;
+}
+
+.cart {
+  border: 1px solid black;
+  border-radius: 4px;
+  padding: 1rem;
+}
+
+.products div {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
