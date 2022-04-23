@@ -1,24 +1,11 @@
+import { Filter } from "./components/Filter";
 import "./App.css";
 
 const App = () => {
   return (
     <>
       <div className="container">
-        <section className="filter">
-          <h3>Filtros</h3>
-          <label>
-            <span>Valor mínimo:</span>
-            <input type="number" />
-          </label>
-          <label>
-            <span>Valor máximo:</span>
-            <input type="number" />
-          </label>
-          <label>
-            <span>Busca por nome:</span>
-            <input type="number" />
-          </label>
-        </section>
+        <Filter />
 
         <section className="list">
           <header>
