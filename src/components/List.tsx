@@ -26,6 +26,7 @@ export const Product = styled.div`
   border-radius: 4px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 `;
 
 export const ProductInfo = styled.div`
@@ -34,11 +35,11 @@ export const ProductInfo = styled.div`
   padding: 0 1rem 1rem;
 `;
 
-export const List = () => {
+export const List = ({ productList }) => {
   return (
     <Container>
       <header>
-        <p>Quantidade de produtos: 3</p>
+        <p>Quantidade de produtos: {productList.length}</p>
         <label>
           <span>Ordenação</span>
           <select>
@@ -49,32 +50,25 @@ export const List = () => {
       </header>
 
       <Grid>
-        <Product>
-          <img src="https://picsum.photos/200/200?a=3" alt="product" />
-          <ProductInfo>
-            <p>Produto Legal</p>
-            <p>R$123,00</p>
-            <button>Adicionar ao Carrinho</button>
-          </ProductInfo>
-        </Product>
-
-        <Product>
-          <img src="https://picsum.photos/200/200?a=3" alt="product" />
-          <ProductInfo>
-            <p>Produto Legal</p>
-            <p>R$123,00</p>
-            <button>Adicionar ao Carrinho</button>
-          </ProductInfo>
-        </Product>
-
-        <Product>
-          <img src="https://picsum.photos/200/200?a=3" alt="product" />
-          <ProductInfo>
-            <p>Produto Legal</p>
-            <p>R$123,00</p>
-            <button>Adicionar ao Carrinho</button>
-          </ProductInfo>
-        </Product>
+        {productList &&
+          productList.map((product) => (
+            <Product key={product.id}>
+              <img
+                src={`https://picsum.photos/200/200?a=${product.id}`}
+                alt="product"
+              />
+              <ProductInfo>
+                <p>{product.name}</p>
+                <p>
+                  {new Intl.NumberFormat("pt-BR", {
+                    style: "currency",
+                    currency: "BRL",
+                  }).format(product.value)}
+                </p>
+                <button>Adicionar ao Carrinho</button>
+              </ProductInfo>
+            </Product>
+          ))}
       </Grid>
     </Container>
   );
