@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Filter } from "./components/Filter";
 import { List } from "./components/List";
 import { Cart } from "./components/Cart";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const Container = styled.div`
   padding: 1rem;
@@ -10,11 +10,12 @@ export const Container = styled.div`
   grid-template-columns: 1fr 3fr 1fr;
 `;
 
-interface ProductList {
+export interface Product {
   id: number;
   name: string;
   value: number;
   imageUrl: string;
+  quantity?: number;
 }
 
 const data = [
@@ -51,12 +52,57 @@ const data = [
 ];
 
 const App = () => {
-  const [productList, setProductList] = useState<ProductList[]>(data);
+  const [productList, setProductList] = useState<Product[]>(data);
+  const [productCart, setProductCart] = useState<Product[]>([
+    {
+      id: 1,
+      name: "Foguete da Missão Apollo 11",
+      value: 10000.0,
+      imageUrl: "https://picsum.photos/200/200?a=1",
+      quantity: 1,
+    },
+    {
+      id: 2,
+      name: "Bonco do Ezio Auditore",
+      value: 523.0,
+      imageUrl: "https://picsum.photos/200/200?a=2",
+      quantity: 1,
+    },
+  ]);
+
+  const handleAddProductCart = (product: Product, productId: number) => {
+    const productInCart = productCart.find(
+      (product) => product.id === productId
+    );
+
+    if (productInCart) {
+      const newProductsInCart = productCart.map((product) => {
+        if (product.id === productId) {
+          return {
+            ...product,
+            quantity: (product.quantity as number) + 1,
+          };
+        }
+        return product;
+      });
+      setProductCart(newProductsInCart);
+    } else {
+      setProductCart((prevState) => [
+        ...prevState,
+        { ...product, quantity: 1 },
+      ]);
+    }
+  };
+
+  console.log(productCart);
 
   return (
     <Container>
       <Filter />
-      <List productList={productList} />
+      <List
+        productList={productList}
+        handleAddProductCart={handleAddProductCart}
+      />
       <Cart />
     </Container>
   );

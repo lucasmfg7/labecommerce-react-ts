@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Product } from "../App";
 
 export const Container = styled.section`
   padding: 1rem;
@@ -21,7 +22,7 @@ export const Grid = styled.div`
   gap: 1rem;
 `;
 
-export const Product = styled.div`
+export const ProductItem = styled.div`
   border: 1px solid black;
   border-radius: 4px;
   display: flex;
@@ -35,7 +36,12 @@ export const ProductInfo = styled.div`
   padding: 0 1rem 1rem;
 `;
 
-export const List = ({ productList }) => {
+interface ListProps {
+  productList: Product[];
+  handleAddProductCart: (product: Product, productId: number) => void;
+}
+
+export const List = ({ productList, handleAddProductCart }: ListProps) => {
   return (
     <Container>
       <header>
@@ -52,7 +58,7 @@ export const List = ({ productList }) => {
       <Grid>
         {productList &&
           productList.map((product) => (
-            <Product key={product.id}>
+            <ProductItem key={product.id}>
               <img
                 src={`https://picsum.photos/200/200?a=${product.id}`}
                 alt="product"
@@ -65,9 +71,13 @@ export const List = ({ productList }) => {
                     currency: "BRL",
                   }).format(product.value)}
                 </p>
-                <button>Adicionar ao Carrinho</button>
+                <button
+                  onClick={() => handleAddProductCart(product, product.id)}
+                >
+                  Adicionar ao Carrinho
+                </button>
               </ProductInfo>
-            </Product>
+            </ProductItem>
           ))}
       </Grid>
     </Container>
