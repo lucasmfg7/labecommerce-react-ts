@@ -16,21 +16,37 @@ export const Container = styled.section`
   }
 `;
 
-export const Filter = () => {
+interface FilterProps {
+  minFilter: number;
+  maxFilter: number;
+  nameFilter: string;
+  onChangeMinFilter: (e: any) => void;
+  onChangeMaxFilter: (e: any) => void;
+  onChangeNameFilter: (e: any) => void;
+}
+
+export const Filter = ({
+  minFilter,
+  maxFilter,
+  nameFilter,
+  onChangeMaxFilter,
+  onChangeMinFilter,
+  onChangeNameFilter,
+}: FilterProps) => {
   return (
     <Container>
       <h3>Filtros</h3>
       <label>
         <span>Valor mínimo:</span>
-        <input type="number" />
+        <input type="number" value={minFilter} onChange={onChangeMinFilter} />
       </label>
       <label>
         <span>Valor máximo:</span>
-        <input type="number" />
+        <input type="number" value={maxFilter} onChange={onChangeMaxFilter} />
       </label>
       <label>
         <span>Busca por nome:</span>
-        <input type="number" />
+        <input type="number" value={nameFilter} onChange={onChangeNameFilter} />
       </label>
     </Container>
   );

@@ -69,6 +69,15 @@ const App = () => {
       quantity: 1,
     },
   ]);
+  const [minFilter, setMinFilter] = useState(100);
+  const [maxFilter, setMaxFilter] = useState(1000);
+  const [nameFilter, setNameFilter] = useState("Produto");
+
+  const onChangeMinFilter = (e: any) => setMinFilter(e.target.value);
+
+  const onChangeMaxFilter = (e: any) => setMaxFilter(e.target.value);
+
+  const onChangeNameFilter = (e: any) => setNameFilter(e.target.value);
 
   const handleAddProductCart = (product: Product, productId: number) => {
     const productInCart = productCart.find(
@@ -111,7 +120,14 @@ const App = () => {
 
   return (
     <Container>
-      <Filter />
+      <Filter
+        minFilter={minFilter}
+        maxFilter={maxFilter}
+        nameFilter={nameFilter}
+        onChangeMinFilter={onChangeMinFilter}
+        onChangeMaxFilter={onChangeMaxFilter}
+        onChangeNameFilter={onChangeNameFilter}
+      />
       <List
         productList={productList}
         handleAddProductCart={handleAddProductCart}
