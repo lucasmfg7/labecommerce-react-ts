@@ -12,6 +12,18 @@ export const Products = styled.div`
     display: flex;
     justify-content: space-between;
     margin-bottom: 5px;
+    align-items: center;
+
+    .name {
+      font-size: 0.75rem;
+      padding: 0 0.25rem;
+      align-self: center;
+      text-align: center;
+    }
+
+    button {
+      padding: 0.25rem;
+    }
   }
 `;
 
@@ -34,7 +46,7 @@ export const Cart = ({ productCart, handleRemoveProductCart }: CartProps) => {
           productCart.map((product) => (
             <div key={product.id}>
               <span>{product.quantity}x</span>
-              <span>{product.name}</span>
+              <span className="name">{product.name}</span>
               <button onClick={() => handleRemoveProductCart(product.id)}>
                 Remover
               </button>
