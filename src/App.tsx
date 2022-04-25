@@ -109,8 +109,6 @@ const App = () => {
     setProductCart(productInCart);
   };
 
-  console.log(productCart);
-
   return (
     <Container>
       <Filter />

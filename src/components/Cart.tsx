@@ -21,6 +21,11 @@ interface CartProps {
 }
 
 export const Cart = ({ productCart, handleRemoveProductCart }: CartProps) => {
+  const result = productCart.reduce((acc, curr) => {
+    acc += curr.value * (curr.quantity as number);
+    return acc;
+  }, 0);
+
   return (
     <Container>
       <h3>Carrinho</h3>
@@ -39,7 +44,13 @@ export const Cart = ({ productCart, handleRemoveProductCart }: CartProps) => {
           <p>Carrinho Vazio</p>
         )}
       </Products>
-      <p>Valor total: R$100,00</p>
+      <p>
+        Valor total:{" "}
+        {new Intl.NumberFormat("pt-BR", {
+          style: "currency",
+          currency: "BRL",
+        }).format(result)}
+      </p>
     </Container>
   );
 };
