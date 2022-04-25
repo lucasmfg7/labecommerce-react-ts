@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled from "styled-components";
 import { Product } from "../App";
 
@@ -39,25 +40,50 @@ export const ProductInfo = styled.div`
 interface ListProps {
   productList: Product[];
   handleAddProductCart: (product: Product, productId: number) => void;
+  minFilter: number;
+  maxFilter: number;
+  nameFilter: string;
 }
 
-export const List = ({ productList, handleAddProductCart }: ListProps) => {
+export const List = ({
+  productList,
+  handleAddProductCart,
+  minFilter,
+  maxFilter,
+  nameFilter,
+}: ListProps) => {
+  const [sort, setSort] = useState("descr");
+
+  const getFilteredOrderedList = () => {
+    return productList
+      .filter((product) => (maxFilter ? product.value <= maxFilter : true))
+      .filter((product) => (minFilter ? product.value >= minFilter : true))
+      .filter((product) =>
+        nameFilter ? product.name.toLowerCase().includes(nameFilter) : true
+      )
+      .sort((a, b) =>
+        sort === "cresc" ? a.value - b.value : b.value - a.value
+      );
+  };
+
+  const filteredOrderedList = getFilteredOrderedList();
+
   return (
     <Container>
       <header>
-        <p>Quantidade de produtos: {productList.length}</p>
+        <p>Quantidade de produtos: {filteredOrderedList.length}</p>
         <label>
           <span>Ordenação</span>
-          <select>
-            <option value="cresc">Crescente</option>
-            <option value="descr">Decrescente</option>
+          <select value={sort} onChange={(e) => setSort(e.target.value)}>
+            <option value={"cresc"}>Crescente</option>
+            <option value={"descr"}>Decrescente</option>
           </select>
         </label>
       </header>
 
       <Grid>
         {productList &&
-          productList.map((product) => (
+          filteredOrderedList.map((product) => (
             <ProductItem key={product.id}>
               <img
                 src={`https://picsum.photos/200/200?a=${product.id}`}

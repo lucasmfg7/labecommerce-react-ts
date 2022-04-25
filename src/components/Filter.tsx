@@ -46,7 +46,7 @@ export const Filter = ({
       </label>
       <label>
         <span>Busca por nome:</span>
-        <input type="number" value={nameFilter} onChange={onChangeNameFilter} />
+        <input type="text" value={nameFilter} onChange={onChangeNameFilter} />
       </label>
     </Container>
   );

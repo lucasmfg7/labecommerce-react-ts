@@ -69,9 +69,9 @@ const App = () => {
       quantity: 1,
     },
   ]);
-  const [minFilter, setMinFilter] = useState(100);
-  const [maxFilter, setMaxFilter] = useState(1000);
-  const [nameFilter, setNameFilter] = useState("Produto");
+  const [minFilter, setMinFilter] = useState(1);
+  const [maxFilter, setMaxFilter] = useState(10000);
+  const [nameFilter, setNameFilter] = useState("");
 
   const onChangeMinFilter = (e: any) => setMinFilter(e.target.value);
 
@@ -130,6 +130,9 @@ const App = () => {
       />
       <List
         productList={productList}
+        minFilter={minFilter}
+        maxFilter={maxFilter}
+        nameFilter={nameFilter}
         handleAddProductCart={handleAddProductCart}
       />
       <Cart
